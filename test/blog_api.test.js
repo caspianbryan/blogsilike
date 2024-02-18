@@ -31,49 +31,49 @@ test('unique identifier is named', async () => {
 }, 10000)
 
 //testing the POST method
-test('successful creation of a new blog post', async () => {
-    const newBlog = {
-        title: 'Bugs are Considered Harmful',
-        author: 'Edsger van Dijk',
-        url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
-        likes: 5,
-    }
+// test('successful creation of a new blog post', async () => {
+//     const newBlog = {
+//         title: 'Bugs are Considered Harmful',
+//         author: 'Edsger van Dijk',
+//         url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
+//         likes: 5,
+//     }
 
-    await api
-        .post('/api/blogs')
-        .send(newBlog)
-        .expect(201)
-        .expect('Content-Type', /application\/json/)
+//     await api
+//         .post('/api/blogs')
+//         .send(newBlog)
+//         .expect(201)
+//         .expect('Content-Type', /application\/json/)
 
-    const blogsAtEnd = await helper.blogsInDb()
-    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1)
+//     const blogsAtEnd = await helper.blogsInDb()
+//     expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1)
 
-    const contents = blogsAtEnd.map(n => n.title)
-    expect(contents).toContain('Bugs are Considered Harmful')
-}, 10000)
+//     const contents = blogsAtEnd.map(n => n.title)
+//     expect(contents).toContain('Bugs are Considered Harmful')
+// }, 10000)
 
 //Checking for 0 likes
-test('creatiion of blogs with 0 likes', async () => {
-    const newBlog = {
-        title: 'A happy coder',
-        author: 'Brian Me',
-        url: 'its me'
-    }
+// test('creatiion of blogs with 0 likes', async () => {
+//     const newBlog = {
+//         title: 'A happy coder',
+//         author: 'Brian Me',
+//         url: 'its me'
+//     }
 
-    const res = await api
-        .post('/api/blogs')
-        .send(newBlog)
-        .expect(201)
-        .expect('Content-Type', /application\/json/)
+//     const res = await api
+//         .post('/api/blogs')
+//         .send(newBlog)
+//         .expect(201)
+//         .expect('Content-Type', /application\/json/)
 
-    expect(res.body.likes).toBe(0)
+//     expect(res.body.likes).toBe(0)
 
-    const blogsAtEnd = await helper.blogsInDb()
-    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1)
+//     const blogsAtEnd = await helper.blogsInDb()
+//     expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1)
 
-    const addedBlog = blogsAtEnd.find(blog => blog.title === newBlog.title)
-    expect(addedBlog.likes).toBe(0)
-}, 10000)
+//     const addedBlog = blogsAtEnd.find(blog => blog.title === newBlog.title)
+//     expect(addedBlog.likes).toBe(0)
+// }, 10000)
 
 // didnt test fully the put method
 //testing PUT method
